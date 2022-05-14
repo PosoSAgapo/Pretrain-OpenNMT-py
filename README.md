@@ -24,7 +24,6 @@ Note: if you encounter a MemoryError during installation, try to use pip with --
 Before you get to use Pre-train-OpenNMT, as indicated above, you should refer to OpenNMT for basic usage, the use of this repository depends on the OpenNMT, so it would be better if you are familiar with it.
 To use bert as embedding model, you only need to specify the embeddings_type argument in the YAML file, for example:
 ```
-
 save_data: examples/data/example
 src_vocab: examples/vocab/example.vocab.src
 tgt_vocab: examples/vocab/example.vocab.tgt
