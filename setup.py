@@ -7,8 +7,8 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='OpenNMT-py',
-    description='A python implementation of OpenNMT',
+    name='Pretrain-OpenNMT-py',
+    description='A python extension that supports pretrain model implementation of OpenNMT',
     long_description=long_description,
     long_description_content_type='text/markdown',
     version='2.2.0',
@@ -29,12 +29,13 @@ setup(
         "waitress",
         "pyonmttok>=1.23,<2",
         "pyyaml",
+        "transformers"
     ],
     entry_points={
         "console_scripts": [
             "onmt_server=onmt.bin.server:main",
-            "onmt_train=onmt.bin.train:main",
-            "onmt_translate=onmt.bin.translate:main",
+            "pretrain_onmt_train=onmt.bin.train:main",
+            "pretrain_onmt_translate=onmt.bin.translate:main",
             "onmt_translate_dynamic=onmt.bin.translate_dynamic:main",
             "onmt_release_model=onmt.bin.release_model:main",
             "onmt_average_models=onmt.bin.average_models:main",
