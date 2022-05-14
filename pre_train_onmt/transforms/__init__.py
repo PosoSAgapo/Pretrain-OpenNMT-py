@@ -48,4 +48,4 @@ for file in os.listdir(transform_dir):
             file.endswith('.py') or os.path.isdir(path)):
         file_name = file[:file.find('.py')] if file.endswith('.py') else file
         module = importlib.import_module(
-            'onmt.transforms.' + file_name)
+            'pre_train_onmt.transforms.' + file_name)
