@@ -175,7 +175,7 @@ def _add_dynamic_fields_opts(parser, build_vocab_only=False):
         group.add('-tgt_embeddings', '--tgt_embeddings',
                   help="Path to the embeddings file to use for target tokens.")
         group.add('-embeddings_type', '--embeddings_type',
-                  choices=["GloVe", "word2vec"],
+                  choices=["GloVe", "word2vec", "bert-base-uncased","bert-base-cased","bert-large-uncased","bert-large-cased"],
                   help="Type of embeddings file.")
 
 

@@ -277,17 +277,25 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
         if hasattr(model, "encoder") and hasattr(model.encoder, "embeddings"):
             src_vocab = fields["src"].base_field.vocab
-            if model_opt.pre_word_vecs_enc == 'bert-base-uncased':
-                tokenizer = BertTokenizer.from_pretrained(model_opt.pre_word_vecs_enc)
-                bert_encoder = BertModel.from_pretrained(model_opt.pre_word_vecs_enc)
+            if model_opt.embeddings_type == 'bert-base-uncased':
+                logger.info('Load tokenzier')
+                tokenizer = BertTokenizer.from_pretrained(model_opt.embeddings_type)
+                bert_encoder = BertModel.from_pretrained(model_opt.embeddings_type)
                 bert_encoder.to(device)
-            model.encoder.embeddings.load_pretrained_vectors(
+                model.encoder.embeddings.load_vectors_from_pretrained_model(
+                    model_opt.embeddings_type,device, src_vocab, 'src', tokenizer, bert_encoder)
+            else:
+                model.encoder.embeddings.load_pretrained_vectors(
                 model_opt.pre_word_vecs_enc, device, src_vocab, 'src', tokenizer, bert_encoder)
         if hasattr(model.decoder, 'embeddings'):
             tgt_vocab = fields["tgt"].base_field.vocab
-            model.decoder.embeddings.load_pretrained_vectors(
+            if model_opt.embeddings_type == 'bert-base-uncased':
+                model.decoder.embeddings.load_vectors_from_pretrained_model(
+                    model_opt.embeddings_type, device, src_vocab, 'tgt', tokenizer, bert_encoder)
+            else:
+                model.decoder.embeddings.load_pretrained_vectors(
                 model_opt.pre_word_vecs_dec, device, tgt_vocab, 'tgt', tokenizer, bert_encoder)
-        if model_opt.pre_word_vecs_enc == 'bert-base-uncased':
+        if model_opt.embeddings_type == 'bert-base-uncased':
             del tokenizer, bert_encoder # delete the bert encoder after generating the embedding
 
     if checkpoint is not None:

@@ -223,8 +223,7 @@ class Embeddings(nn.Module):
         Args:
           emb_file (str) : path to torch serialized embeddings
         """
-
-        if emb_file != 'bert_embedding':
+        if emb_file != None:
             pretrained = torch.load(emb_file)
             pretrained_vec_size = pretrained.size(1)
             if self.word_vec_size > pretrained_vec_size:
@@ -234,19 +233,21 @@ class Embeddings(nn.Module):
                     .copy_(pretrained[:, :self.word_vec_size])
             else:
                 self.word_lut.weight.data.copy_(pretrained)
-        else:
-            pretrained_vec_size = bert_encoder.embeddings.word_embeddings.embedding_dim
-            logger.info("%s is generating embeddings for the %s vocab, the time depends on the vocab size" % (emb_file, vocab_name))
-            # Remove old vocabulary associated embeddings
-            for idx, word in enumerate(vocab.itos):
-                inputs = tokenizer(word, return_tensors="pt")
-                outputs = bert_encoder(input_ids=input['input_ids'].cuda(), attention_mask=inputs['attention_mask'].cuda(), token_type_ids=inputs['token_type_ids'].cuda())
-                if self.word_vec_size > pretrained_vec_size:
-                    self.word_lut.weight.data[:, :pretrained_vec_size] = outputs.last_hidden_state[:, 0, :pretrained_vec_size]
-                elif self.word_vec_size <= pretrained_vec_size:
-                    self.word_lut.weight.data[idx] = outputs.last_hidden_state[:, 0, :self.word_vec_size]
-
-
+          
+    def load_vectors_from_pretrained_model(self, emb_model, device, vocab, vocab_name, tokenizer=None, bert_encoder=None):
+        pretrained_vec_size = bert_encoder.embeddings.word_embeddings.embedding_dim
+        logger.info(
+            "%s is generating embeddings for the %s vocab, the time depends on the vocab size" % (emb_model, vocab_name))
+        # Remove old vocabulary associated embeddings
+        for idx, word in enumerate(vocab.itos):
+            inputs = tokenizer(word, return_tensors="pt")
+            outputs = bert_encoder(input_ids=inputs['input_ids'].to(device), attention_mask=inputs['attention_mask'].to(device),
+                                   token_type_ids=inputs['token_type_ids'].to(device))
+            if self.word_vec_size > pretrained_vec_size:
+                self.word_lut.weight.data[:, :pretrained_vec_size] = outputs.last_hidden_state[:, 0,
+                                                                     :pretrained_vec_size]
+            elif self.word_vec_size <= pretrained_vec_size:
+                self.word_lut.weight.data[idx] = outputs.last_hidden_state[:, 0, :self.word_vec_size]
 
     def forward(self, source, step=None):
         """Computes the embeddings for words and features.
