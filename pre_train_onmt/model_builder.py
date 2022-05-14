@@ -278,8 +278,9 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
         if hasattr(model, "encoder") and hasattr(model.encoder, "embeddings"):
             src_vocab = fields["src"].base_field.vocab
             if model_opt.embeddings_type == 'bert-base-uncased':
-                logger.info('Load tokenzier')
+                logger.info("Loading tokenzier %s ....", model_opt.embeddings_type )
                 tokenizer = BertTokenizer.from_pretrained(model_opt.embeddings_type)
+                logger.info("Loading pre-trained model %s ....", model_opt.embeddings_type)
                 bert_encoder = BertModel.from_pretrained(model_opt.embeddings_type)
                 bert_encoder.to(device)
                 model.encoder.embeddings.load_vectors_from_pretrained_model(
