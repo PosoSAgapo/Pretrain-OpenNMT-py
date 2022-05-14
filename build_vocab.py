@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from onmt.bin.build_vocab import main
+from pre_train_onmt.bin.build_vocab import main
 
 
 if __name__ == "__main__":

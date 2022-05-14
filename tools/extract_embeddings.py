@@ -2,14 +2,14 @@ import argparse
 
 import torch
 
-import onmt
-import onmt.model_builder
+import pre_train_onmt
+import pre_train_onmt.model_builder
 
-from onmt.utils.parse import ArgumentParser
-import onmt.opts
+from pre_train_onmt.utils.parse import ArgumentParser
+import pre_train_onmt.opts
 
-from onmt.utils.misc import use_gpu
-from onmt.utils.logging import init_logger, logger
+from pre_train_onmt.utils.misc import use_gpu
+from pre_train_onmt.utils.logging import init_logger, logger
 
 parser = argparse.ArgumentParser(description='translate.py')
 
@@ -32,7 +32,7 @@ def write_embeddings(filename, dict, embeddings):
 
 def main():
     dummy_parser = argparse.ArgumentParser(description='train.py')
-    onmt.opts.model_opts(dummy_parser)
+    pre_train_onmt.opts.model_opts(dummy_parser)
     dummy_opt = dummy_parser.parse_known_args([])[0]
     opt = parser.parse_args()
     opt.cuda = opt.gpu > -1
@@ -57,7 +57,7 @@ def main():
     ArgumentParser.update_model_opts(model_opt)
     ArgumentParser.validate_model_opts(model_opt)
 
-    model = onmt.model_builder.build_base_model(
+    model = pre_train_onmt.model_builder.build_base_model(
         model_opt, fields, use_gpu(opt), checkpoint)
     encoder = model.encoder  # no encoder for LM task
     decoder = model.decoder

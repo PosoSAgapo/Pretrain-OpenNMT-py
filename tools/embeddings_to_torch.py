@@ -4,7 +4,7 @@ from __future__ import division
 import six
 import argparse
 import torch
-from onmt.utils.logging import init_logger, logger
+from pre_train_onmt.utils.logging import init_logger, logger
 
 
 def get_vocabs(dict_path):
