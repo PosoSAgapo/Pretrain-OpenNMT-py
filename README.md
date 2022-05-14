@@ -47,7 +47,7 @@ copy_attn: True
 ```
 After this YAML file is built, instead of running `onmt_train -config xxx.yaml`, you should use `pre_train_onmt_train -config xxx.yaml` instead, then you should be able to see the log ouput shows that the generation of bert embedding for both src vocab and tgt vocab.
 
-In this example, you specify the embeddings_type as the `bert-base-uncased` and the word vector size is `768`, the Pre-train-OpenNMT will autromatically load the tokenizer and model of `bert-base-uncased` based on the transformers package. 
+In this example, you specify the `embeddings_type` as the `bert-base-uncased` and the word vector size is `768`, the Pre-train-OpenNMT will autromatically load the tokenizer and model of `bert-base-uncased` based on the transformers package. 
 
 Then, it will generate the word embedding for both of your src and tgt vocabulary, then the pre-train model and the tokenizer will be deleted after the generation to save cuda memeory as the bert only works as embedding not encoder. Basically, Pre-train-OpenNMT works seamlessly with OpenNMT. Since as the whole bert family is supported, you could also specify `bert-large-uncased` or `bert-base-cased` or any other bert version supported by transformers package. 
 
