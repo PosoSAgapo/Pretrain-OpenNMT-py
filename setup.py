@@ -11,7 +11,7 @@ setup(
     description='A python onmt extension that supports pre-train model implementation of OpenNMT',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version='2.2.0+ONMT+0.0.1+PONMT',
+    version='o_2.2.0_p_p0.0.1',
     packages=find_packages(),
     python_requires=">=3.5",
     install_requires=[
