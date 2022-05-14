@@ -11,7 +11,7 @@ In this feature, BERT works as an embedding layer that provide work embedding gi
 In this feature, BERT works an the encoder which makes it a BERT2Seq model.
 ## 
 
-##Installation
+## Installation
 This package is not available in pip as most of the code is still experimentaly so you should install in from source.
 ```
 git clone https://github.com/OpenNMT/OpenNMT-py.git
