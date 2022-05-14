@@ -9,7 +9,6 @@ However, as this is an independent extension for OpenNMT, so I may not be able t
 In this feature, BERT works as an embedding layer that provide work embedding given a token. Therefore the BERT is not the encoder at this feature, the RNN or any other model can be chosen to be the encoder.
 ### BERT as Encoder
 In this feature, BERT works an the encoder which makes it a BERT2Seq model.
-## 
 
 ## Installation
 
