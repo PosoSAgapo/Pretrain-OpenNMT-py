@@ -109,7 +109,7 @@ def load_test_model(opt, model_path=None):
 
 def build_src_emb(model_opt, fields):
     # Build embeddings.
-    if model_opt.model_type == "text":
+    if (model_opt.model_type == "text"):
         src_field = fields["src"]
         src_emb = build_embeddings(model_opt, src_field)
     else:
@@ -277,8 +277,8 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
         if hasattr(model, "encoder") and hasattr(model.encoder, "embeddings"):
             src_vocab = fields["src"].base_field.vocab
-            if model_opt.use_pre_trained_model:
-                logger.info("Loading tokenzier %s ....", model_opt.embeddings_type )
+            if model_opt.use_pre_trained_model_for_embedding:
+                logger.info("Loading tokenzier %s ....", model_opt.embeddings_type)
                 tokenizer = AutoTokenizer.from_pretrained(model_opt.embeddings_type)
                 logger.info("Loading pre-trained model %s ....", model_opt.embeddings_type)
                 bert_encoder = AutoModel.from_pretrained(model_opt.embeddings_type)
@@ -289,12 +289,12 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
                 model.encoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_enc)
         if hasattr(model.decoder, 'embeddings'):
             tgt_vocab = fields["tgt"].base_field.vocab
-            if model_opt.use_pre_trained_model:
+            if model_opt.use_pre_trained_model_for_embedding:
                 model.decoder.embeddings.load_vectors_from_pretrained_model(
                     model_opt.embeddings_type, device, tgt_vocab, 'tgt', tokenizer, bert_encoder)
             else:
                 model.decoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_dec)
-        if model_opt.use_pre_trained_model:
+        if model_opt.use_pre_trained_model_for_embedding:
             del tokenizer, bert_encoder # delete the bert encoder after generating the embedding
 
     if checkpoint is not None:

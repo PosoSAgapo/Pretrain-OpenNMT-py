@@ -176,7 +176,7 @@ def _add_dynamic_fields_opts(parser, build_vocab_only=False):
                   help="Path to the embeddings file to use for target tokens.")
         group.add('-embeddings_type', '--embeddings_type',
                   help="Type of embeddings file. Possible options are 'Glove', 'word2vec' and bert family")
-        group.add('-use_pre_trained_model', '--use_pre_trained_model',
+        group.add('-use_pre_trained_model_for_embedding', '--use_pre_trained_model_for_embedding',
                   type=bool,  help="Use embeddings from pre-trained model")
 
 

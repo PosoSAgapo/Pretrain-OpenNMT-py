@@ -41,7 +41,7 @@ save_checkpoint_steps: 10000
 train_steps: 100
 valid_steps: 5
 embeddings_type: bert-base-uncased
-use_pre_trained_model: True
+use_pre_trained_model_for_embedding: True
 word_vec_size: 768
 rnn_size: 384
 copy_attn: True
