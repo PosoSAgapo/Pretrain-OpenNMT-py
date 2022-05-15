@@ -277,25 +277,25 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
 
         if hasattr(model, "encoder") and hasattr(model.encoder, "embeddings"):
             src_vocab = fields["src"].base_field.vocab
-            if model_opt.embeddings_type == 'bert-base-uncased':
+            if model_opt.use_pre_trained_model:
                 logger.info("Loading tokenzier %s ....", model_opt.embeddings_type )
                 tokenizer = BertTokenizer.from_pretrained(model_opt.embeddings_type)
                 logger.info("Loading pre-trained model %s ....", model_opt.embeddings_type)
                 bert_encoder = BertModel.from_pretrained(model_opt.embeddings_type)
                 bert_encoder.to(device)
                 model.encoder.embeddings.load_vectors_from_pretrained_model(
-                    model_opt.embeddings_type,device, src_vocab, 'src', tokenizer, bert_encoder)
+                    model_opt.embeddings_type, device, src_vocab, 'src', tokenizer, bert_encoder)
             else:
                 model.encoder.embeddings.load_pretrained_vectors(
-                model_opt.pre_word_vecs_enc, device, src_vocab, 'src', tokenizer, bert_encoder)
+                model_opt.pre_word_vecs_enc)
         if hasattr(model.decoder, 'embeddings'):
             tgt_vocab = fields["tgt"].base_field.vocab
-            if model_opt.embeddings_type == 'bert-base-uncased':
+            if model_opt.user_pre_trained_model:
                 model.decoder.embeddings.load_vectors_from_pretrained_model(
                     model_opt.embeddings_type, device, src_vocab, 'tgt', tokenizer, bert_encoder)
             else:
                 model.decoder.embeddings.load_pretrained_vectors(
-                model_opt.pre_word_vecs_dec, device, tgt_vocab, 'tgt', tokenizer, bert_encoder)
+                model_opt.pre_word_vecs_dec)
         if model_opt.embeddings_type == 'bert-base-uncased':
             del tokenizer, bert_encoder # delete the bert encoder after generating the embedding
 

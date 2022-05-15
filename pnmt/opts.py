@@ -175,8 +175,9 @@ def _add_dynamic_fields_opts(parser, build_vocab_only=False):
         group.add('-tgt_embeddings', '--tgt_embeddings',
                   help="Path to the embeddings file to use for target tokens.")
         group.add('-embeddings_type', '--embeddings_type',
-                  choices=["GloVe", "word2vec", "bert-base-uncased","bert-base-cased","bert-large-uncased","bert-large-cased"],
-                  help="Type of embeddings file.")
+                  help="Type of embeddings file. Possible options are 'Glove', 'word2vec' and bert family")
+        group.add('-use_pre_trained_model', '--use_pre_trained_model',
+                  type=bool,  help="Use embeddings from pre-trained model")
 
 
 def _add_dynamic_transform_opts(parser):

@@ -217,7 +217,7 @@ class Embeddings(nn.Module):
         """Embedding look-up table."""
         return self.make_embedding[0]
 
-    def load_pretrained_vectors(self, emb_file, device, vocab, vocab_name, tokenizer=None, bert_encoder=None):
+    def load_pretrained_vectors(self, emb_file):
         """Load in pretrained embeddings.
 
         Args:
