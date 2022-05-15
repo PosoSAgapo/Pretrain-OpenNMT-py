@@ -7,7 +7,7 @@ import shutil
 import sys
 import codecs
 
-from pre_train_onmt.utils.logging import init_logger, logger
+from pnmt.utils.logging import init_logger, logger
 
 
 def test_rouge(cand, ref):

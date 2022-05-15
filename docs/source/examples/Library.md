@@ -17,19 +17,19 @@ from collections import defaultdict, Counter
 ```
 
 ```python
-import pre_train_onmt
-from pre_train_onmt.inputters.inputter import _load_vocab, _build_fields_vocab, get_fields, IterOnDevice
-from pre_train_onmt.inputters.corpus import ParallelCorpus
-from pre_train_onmt.inputters.dynamic_iterator import DynamicDatasetIter
-from pre_train_onmt.translate import GNMTGlobalScorer, Translator, TranslationBuilder
-from pre_train_onmt.utils.misc import set_random_seed
+import pnmt
+from pnmt.inputters.inputter import _load_vocab, _build_fields_vocab, get_fields, IterOnDevice
+from pnmt.inputters.corpus import ParallelCorpus
+from pnmt.inputters.dynamic_iterator import DynamicDatasetIter
+from pnmt.translate import GNMTGlobalScorer, Translator, TranslationBuilder
+from pnmt.utils.misc import set_random_seed
 ```
 
 ### Enable logging
 
 ```python
 # enable logging
-from pre_train_onmt.utils.logging import init_logger, logger
+from pnmt.utils.logging import init_logger, logger
 
 init_logger()
 ```
@@ -117,13 +117,13 @@ with open("toy-ende/config.yaml", "w") as f:
 ```
 
 ```python
-from pre_train_onmt.utils.parse import ArgumentParser
+from pnmt.utils.parse import ArgumentParser
 
 parser = DynamicArgumentParser(description='build_vocab.py')
 ```
 
 ```python
-from pre_train_onmt.opts import dynamic_prepare_opts
+from pnmt.opts import dynamic_prepare_opts
 
 dynamic_prepare_opts(parser, build_vocab_only=True)
 ```
@@ -145,7 +145,7 @@ opts
     Namespace(config='toy-ende/config.yaml', data="{'corpus': {'path_src': 'toy-ende/src-train.txt', 'path_tgt': 'toy-ende/tgt-train.txt', 'transforms': [], 'weight': 1}, 'valid': {'path_src': 'toy-ende/src-val.txt', 'path_tgt': 'toy-ende/tgt-val.txt', 'transforms': []}}", insert_ratio=0.0, mask_length='subword', mask_ratio=0.0, n_sample=10000, src_onmttok_kwargs="{'mode': 'none'}", tgt_onmttok_kwargs="{'mode': 'none'}", overwrite=False, permute_sent_ratio=0.0, poisson_lambda=0.0, random_ratio=0.0, replace_length=-1, rotate_ratio=0.5, save_config=None, save_data='toy-ende/run/example', seed=-1, share_vocab=False, skip_empty_level='warning', src_seq_length=200, src_subword_model=None, src_subword_type='none', src_vocab=None, subword_alpha=0, subword_nbest=1, switchout_temperature=1.0, tgt_seq_length=200, tgt_subword_model=None, tgt_subword_type='none', tgt_vocab=None, tokendrop_temperature=1.0, tokenmask_temperature=1.0, transforms=[])
 
 ```python
-from pre_train_onmt.bin.build_vocab import build_vocab_main
+from pnmt.bin.build_vocab import build_vocab_main
 
 build_vocab_main(opts)
 ```

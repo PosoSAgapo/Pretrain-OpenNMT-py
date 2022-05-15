@@ -27,13 +27,13 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "pre_train_onmt_server=pre_train_onmt.bin.server:main",
-            "pre_train_onmt_train=pre_train_onmt.bin.train:main",
-            "pre_train_onmt_translate=pre_train_onmt.bin.translate:main",
-            "pre_train_onmt_translate_dynamic=pre_train_onmt.bin.translate_dynamic:main",
-            "pre_train_onmt_release_model=pre_train_onmt.bin.release_model:main",
-            "pre_train_onmt_average_models=pre_train_onmt.bin.average_models:main",
-            "pre_train_onmt_build_vocab=pre_train_onmt.bin.build_vocab:main"
+            "pnmt_server=pnmt.bin.server:main",
+            "pnmt_train=pnmt.bin.train:main",
+            "pnmt_translate=pnmt.bin.translate:main",
+            "pnmt_translate_dynamic=pnmt.bin.translate_dynamic:main",
+            "pnmt_release_model=pnmt.bin.release_model:main",
+            "pnmt_average_models=pnmt.bin.average_models:main",
+            "pnmt_build_vocab=pnmt.bin.build_vocab:main"
         ],
     }
 )

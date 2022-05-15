@@ -1,18 +1,18 @@
-# Pretrain-OpenNMT-py: Open-Source Neural Machine Translation in Pretrain Version
+# Pretrain-OpenNMT-py (PNMT): Open-Source Neural Machine Translation with Pre-train support and research friendly feature
 
-This repository is an extension from OpenNMT-py which supports the pre-train model including BERT model or other pre-trained models. The target of this branch is to make OpenNMT a research friendly project that support pre-train model, auto evaluation and find the best checkpoint on the test set.
-Before you use this package, you should refer to [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) for basic usage as this package works as extension. 
+This repository is an extension from OpenNMT-py which supports the pre-train model including BERT model or other pre-trained models. The target of this repository is to make OpenNMT a more research friendly project that support pre-train model, auto evaluation and find the best checkpoint on the test set.
+Before you use this package, you should refer to [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) for basic usage as this repository is build on OpenNMT. 
 
-However, as this is an independent extension for OpenNMT, so I may not be able to always keep maintain updated with OpenNMT's new release, but I will try my best. If any  feature of OpenNMT does not work in here, you should use OpenNMT instead, but if you think it is a bug in the repository, please raise an issue.
+However, as this is an independent extension for OpenNMT, so I may not be able to always keep updated with OpenNMT's new release, but I will try my best. If any new feature of OpenNMT does not work in here, you should use OpenNMT instead, but if you think it is a bug in the repository, please raise an issue.
 ## Completed Features:
 ### BERT as Embedding
-In this feature, BERT works as an embedding layer that provide work embedding given a token. Therefore the BERT is not the encoder at this feature, the RNN or any other model can be chosen to be the encoder.
+In this feature, BERT works as an embedding layer that provide word embedding given a token. Therefore the BERT is not the encoder at this feature, the RNN or any other model can be chosen to be the encoder.
 ### BERT as Encoder
 In this feature, BERT works an the encoder which makes it a BERT2Seq model.
 
 ## Installation
 
-This package is not available in pip as most of the code is still experimentaly so you should install in from source.
+This package is not available in pip as most of the code is still experimental so you should install in from source.
 ```
 git clone https://github.com/PosoSAgapo/Pretrain-OpenNMT-py.git
 cd Pretrain-OpenNMT-py
@@ -45,11 +45,13 @@ word_vec_size: 768
 rnn_size: 384
 copy_attn: True
 ```
-After this YAML file is built, instead of running `onmt_train -config xxx.yaml`, you should use `pre_train_onmt_train -config xxx.yaml` instead, then you should be able to see the log ouput shows that the generation of bert embedding for both src vocab and tgt vocab.
+After this YAML file is built, instead of running `onmt_train -config xxx.yaml`, you should use `pre_train_onmt_train -config xxx.yaml` instead, then you should be able to see the log ouput shows that the generation of bert embedding for both src vocab and tgt vocabulary.
 
 In this example, you specify the `embeddings_type` as the `bert-base-uncased` and the word vector size is `768`, the Pre-train-OpenNMT will autromatically load the tokenizer and model of `bert-base-uncased` based on the transformers package. 
 
-Then, it will generate the word embedding for both of your src and tgt vocabulary, then the pre-train model and the tokenizer will be deleted after the generation to save cuda memeory as the bert only works as embedding not encoder. Basically, Pre-train-OpenNMT works seamlessly with OpenNMT. Since as the whole bert family is supported, you could also specify `bert-large-uncased` or `bert-base-cased` or any other bert version supported by transformers package. 
+Then, it will generate the word embedding for both of your src and tgt vocabulary, then the pre-train model and the tokenizer will be deleted after the generation to save cuda memeory as the bert only works as embedding not encoder. Basically, Pre-train-OpenNMT works seamlessly with OpenNMT.
+
+Since the whole bert family is supported, you could also specify `bert-large-uncased` or `bert-base-cased` or any other bert version supported by transformers package. 
 
 The dafult embedding for each word in the embedding of `[CLS]` token which is the embedding representation of that word.
 
