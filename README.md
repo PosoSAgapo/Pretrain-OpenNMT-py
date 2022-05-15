@@ -67,3 +67,5 @@ This feature is mainly to be research friendlym, the target is to split the test
 This project will be organized and re-publish as another package since OpenNMT does not consider to include pre-trained models.
 
 Feel free to send a PR or feature request, I will reply at my best.
+## Github Pages
+Now we have a github page.
