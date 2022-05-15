@@ -286,17 +286,15 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
                 model.encoder.embeddings.load_vectors_from_pretrained_model(
                     model_opt.embeddings_type, device, src_vocab, 'src', tokenizer, bert_encoder)
             else:
-                model.encoder.embeddings.load_pretrained_vectors(
-                model_opt.pre_word_vecs_enc)
+                model.encoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_enc)
         if hasattr(model.decoder, 'embeddings'):
             tgt_vocab = fields["tgt"].base_field.vocab
             if model_opt.user_pre_trained_model:
                 model.decoder.embeddings.load_vectors_from_pretrained_model(
                     model_opt.embeddings_type, device, src_vocab, 'tgt', tokenizer, bert_encoder)
             else:
-                model.decoder.embeddings.load_pretrained_vectors(
-                model_opt.pre_word_vecs_dec)
-        if model_opt.embeddings_type == 'bert-base-uncased':
+                model.decoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_dec)
+        if model_opt.use_pre_trained_model:
             del tokenizer, bert_encoder # delete the bert encoder after generating the embedding
 
     if checkpoint is not None:
