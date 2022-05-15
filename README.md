@@ -45,7 +45,7 @@ word_vec_size: 768
 rnn_size: 384
 copy_attn: True
 ```
-After this YAML file is built, instead of running `onmt_train -config xxx.yaml`, you should use `pre_train_onmt_train -config xxx.yaml` instead, then you should be able to see the log ouput shows that the generation of bert embedding for both src vocab and tgt vocabulary.
+After this YAML file is built, instead of running `onmt_train -config xxx.yaml`, you should use `pnmt_train -config xxx.yaml` instead, then you should be able to see the log ouput shows that the generation of bert embedding for both src vocab and tgt vocabulary.
 
 In this example, you specify the `embeddings_type` as the `bert-base-uncased` and the word vector size is `768`, the Pre-train-OpenNMT will autromatically load the tokenizer and model of `bert-base-uncased` based on the transformers package. 
 
@@ -54,6 +54,8 @@ Then, it will generate the word embedding for both of your src and tgt vocabular
 Since the whole bert family is supported, you could also specify `bert-large-uncased` or `bert-base-cased` or any other bert version supported by transformers package. 
 
 The dafult embedding for each word in the embedding of `[CLS]` token which is the embedding representation of that word.
+
+Additionally, all the `onmt` script are replaced with `pnmt` is this repository.
 
 ## To do features:
 ### Generation Pre-trained Model 
