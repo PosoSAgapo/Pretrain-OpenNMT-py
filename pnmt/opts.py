@@ -177,7 +177,7 @@ def _add_dynamic_fields_opts(parser, build_vocab_only=False):
         group.add('-embeddings_type', '--embeddings_type',
                   help="Type of embeddings file. Possible options are 'Glove', 'word2vec' and bert family")
         group.add('-use_pre_trained_model_for_embedding', '--use_pre_trained_model_for_embedding',
-                  type=bool,  help="Use embeddings from pre-trained model")
+                  type=bool,  help="Use embeddings from pre-trained model. Set to True if you want to use this.")
 
 
 def _add_dynamic_transform_opts(parser):
@@ -273,13 +273,15 @@ def model_opts(parser):
     group.add('--model_dtype', '-model_dtype', default='fp32',
               choices=['fp32', 'fp16'],
               help='Data type of the model.')
-
     group.add('--encoder_type', '-encoder_type', type=str, default='rnn',
               choices=['rnn', 'brnn', 'ggnn', 'mean', 'transformer', 'cnn',
                        'transformer_lm', 'bert_encoder', ],
               help="Type of encoder layer to use. Non-RNN layers "
                    "are experimental. Options are "
                    "[rnn|brnn|ggnn|mean|transformer|cnn|transformer_lm|bert_encoder].")
+    group.add('--use_pre_trained_model_for_encoder', '-use_pre_trained_model_for_encoder',
+              type=bool, default=False,
+              help="Whether to use pre-trained model for encoder, enable this if you want to use pre-trained model.")
     group.add('--decoder_type', '-decoder_type', type=str, default='rnn',
               choices=['rnn', 'transformer', 'cnn', 'transformer_lm'],
               help="Type of decoder layer to use. Non-RNN layers "
