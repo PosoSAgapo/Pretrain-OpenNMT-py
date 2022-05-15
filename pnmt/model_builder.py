@@ -18,7 +18,7 @@ from pnmt.utils.misc import use_gpu
 from pnmt.utils.logging import logger
 from pnmt.utils.parse import ArgumentParser
 from pnmt.constants import ModelTask
-from transformers import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel, AutoTokenizer, AutoModel
 
 
 def build_embeddings(opt, text_field, for_encoder=True):
@@ -279,9 +279,9 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
             src_vocab = fields["src"].base_field.vocab
             if model_opt.use_pre_trained_model:
                 logger.info("Loading tokenzier %s ....", model_opt.embeddings_type )
-                tokenizer = BertTokenizer.from_pretrained(model_opt.embeddings_type)
+                tokenizer = AutoTokenizer.from_pretrained(model_opt.embeddings_type)
                 logger.info("Loading pre-trained model %s ....", model_opt.embeddings_type)
-                bert_encoder = BertModel.from_pretrained(model_opt.embeddings_type)
+                bert_encoder = AutoModel.from_pretrained(model_opt.embeddings_type)
                 bert_encoder.to(device)
                 model.encoder.embeddings.load_vectors_from_pretrained_model(
                     model_opt.embeddings_type, device, src_vocab, 'src', tokenizer, bert_encoder)
@@ -289,9 +289,9 @@ def build_base_model(model_opt, fields, gpu, checkpoint=None, gpu_id=None):
                 model.encoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_enc)
         if hasattr(model.decoder, 'embeddings'):
             tgt_vocab = fields["tgt"].base_field.vocab
-            if model_opt.user_pre_trained_model:
+            if model_opt.use_pre_trained_model:
                 model.decoder.embeddings.load_vectors_from_pretrained_model(
-                    model_opt.embeddings_type, device, src_vocab, 'tgt', tokenizer, bert_encoder)
+                    model_opt.embeddings_type, device, tgt_vocab, 'tgt', tokenizer, bert_encoder)
             else:
                 model.decoder.embeddings.load_pretrained_vectors(model_opt.pre_word_vecs_dec)
         if model_opt.use_pre_trained_model:

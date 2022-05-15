@@ -8,7 +8,7 @@ import torch.nn as nn
 from pnmt.modules.util_class import Elementwise
 from pnmt.utils.logging import logger
 from transformers import BertTokenizer, BertModel
-
+import pdb
 
 class SequenceTooLongError(Exception):
     pass
@@ -234,21 +234,21 @@ class Embeddings(nn.Module):
             else:
                 self.word_lut.weight.data.copy_(pretrained)
           
-    def load_vectors_from_pretrained_model(self, emb_model, device, vocab, vocab_name, tokenizer=None, bert_encoder=None):
-        pretrained_vec_size = bert_encoder.embeddings.word_embeddings.embedding_dim
+    def load_vectors_from_pretrained_model(self, emb_model, device, vocab, vocab_name, tokenizer=None, pre_train_encoder=None):
+        pretrained_vec_size = pre_train_encoder.embeddings.word_embeddings.embedding_dim
         logger.info(
             "%s is generating embeddings for the %s vocab, the time depends on the vocab size" % (emb_model, vocab_name))
         # Remove old vocabulary associated embeddings
         for idx, word in enumerate(vocab.itos):
             inputs = tokenizer(word, return_tensors="pt")
-            outputs = bert_encoder(input_ids=inputs['input_ids'].to(device), attention_mask=inputs['attention_mask'].to(device),
+            outputs = pre_train_encoder(input_ids=inputs['input_ids'].to(device), attention_mask=inputs['attention_mask'].to(device),
                                    token_type_ids=inputs['token_type_ids'].to(device))
             if self.word_vec_size > pretrained_vec_size:
                 self.word_lut.weight.data[:, :pretrained_vec_size] = outputs.last_hidden_state[:, 0,
                                                                      :pretrained_vec_size]
             elif self.word_vec_size <= pretrained_vec_size:
                 self.word_lut.weight.data[idx] = outputs.last_hidden_state[:, 0, :self.word_vec_size]
-
+                
     def forward(self, source, step=None):
         """Computes the embeddings for words and features.
 
