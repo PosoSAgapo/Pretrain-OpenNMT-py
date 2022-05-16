@@ -62,7 +62,7 @@ Additionally, all the `onmt` script are replaced with `pnmt` is this repository.
 ### Generation Pre-trained Model 
 This include pre-trained models like T5 or other possible generation pre-trained models.
 ### Parrallel Training and Inference
-This feature is mainly to be research friendlym, the target is to split the test and training and then automatically find the best checkpoint.
+This feature is mainly to be research friendly, the target is to split the test and training process (runing validating set evaluation in a background program if you have other availble GPUs so it could largely save the time on validating set in the normal training procedure) and then automatically find the best checkpoint.
 ## Others
 This project will be organized and re-publish as another package since OpenNMT does not consider to include pre-trained models.
 
