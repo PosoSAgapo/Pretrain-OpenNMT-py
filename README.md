@@ -1,9 +1,16 @@
+
+
+
 # Pretrain-OpenNMT-py (PNMT): Open-Source Neural Machine Translation with Pre-train support and research friendly feature
 
 This repository is an extension from OpenNMT-py which supports the pre-train model including BERT model or other pre-trained models. The target of this repository is to make OpenNMT a more research friendly project that support pre-train model, auto evaluation and find the best checkpoint on the test set.
 Before you use this package, you should refer to [OpenNMT](https://github.com/OpenNMT/OpenNMT-py) for basic usage as this repository is build on OpenNMT. 
 
 However, as this is an independent extension for OpenNMT, so I may not be able to always keep updated with OpenNMT's new release, but I will try my best. If any new feature of OpenNMT does not work in here, you should use OpenNMT instead, but if you think it is a bug in the repository, please raise an issue.
+## Transfer
+
+This repository has been transfered to this page [PNMT](https://github.com/mynlp/pnmt) of University of Tokyo of Prof.Yusuke Miyao's Lab. This page will only used for archive purpose only. For usage please refer to [PNMT](https://github.com/mynlp/pnmt), I will not respond to any issue at this page.
+
 ## Completed Features:
 ### BERT as Embedding
 In this feature, BERT works as an embedding layer that provide word embedding given a token. Therefore the BERT is not the encoder at this feature, the RNN or any other model can be chosen to be the encoder.
